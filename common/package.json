@@ -1,6 +1,6 @@
 {
   "name": "@cs_labs_gamehub/common",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "common modules for CSLabs Gamehub services",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
