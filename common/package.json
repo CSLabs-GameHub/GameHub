@@ -1,6 +1,6 @@
 {
   "name": "@cs_labs_gamehub/common",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "common modules for CSLabs Gamehub services",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
@@ -8,9 +8,10 @@
     "build/**/*"
   ],
   "scripts": {
-    "clean": "del ./build/*",
+    "clean": "rm -rf ./build/*",
     "build": "npm run clean && tsc",
-    "pub": "git add . && git commit -m \"Updates\" && npm version patch && npm run build && npm publish"
+    "pub": "npm version patch && npm run build && npm publish",
+    "cm:pub": "git add . && git commit -m \"Updates\" && npm version patch && npm run build && npm publish"
   },
   "keywords": [
     "errors",
