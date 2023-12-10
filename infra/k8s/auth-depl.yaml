@@ -21,6 +21,16 @@ spec:
                 secretKeyRef:
                   name: auth-mongo-uri
                   key: AUTH_MONGO_URI
+            - name: DISCORD_OAUTH_CLIENT
+              valueFrom:
+                secretKeyRef:
+                  name: discord-oauth-client
+                  key: DISCORD_OAUTH_CLIENT
+            - name: DISCORD_OAUTH_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: discord-oauth-secret
+                  key: DISCORD_OAUTH_SECRET
             - name: JWT_KEY
               valueFrom:
                 secretKeyRef:
