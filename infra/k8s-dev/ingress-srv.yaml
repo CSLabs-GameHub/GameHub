@@ -17,13 +17,20 @@ spec:
                 name: auth-srv
                 port:
                   number: 3000
-          # - path: /?(.*)
+          # - path: /api/v1/wof/?(.*)
           #   pathType: ImplementationSpecific
           #   backend:
           #     service:
-          #       name: client-srv
+          #       name: wof-srv
           #       port:
           #         number: 3000
+          - path: /?(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: client-srv
+                port:
+                  number: 3000
 # ---
 # apiVersion: v1
 # kind: Service

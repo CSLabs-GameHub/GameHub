@@ -5,13 +5,18 @@ import tsconfigPaths from 'vite-tsconfig-paths'
 // https://vitejs.dev/config/
 export default defineConfig({
   server: {
-    host: true,
-    port: 5150,
+    host: 'gamehub.dev',
+    port: 3000,
     strictPort: true,
+    proxy: {
+      '/': 'http://gamehub.dev/',
+      '/api': 'http://gamehub.dev/api',
+    },
     https: false,
     open: true,
   },
   build: {
+    outDir: './build',
     rollupOptions: {
       output: {
         chunkFileNames: 'assets/js/[name]-[hash].js',
@@ -19,15 +24,11 @@ export default defineConfig({
 
         assetFileNames: ({ name }) => {
           if (/\.(gif|jpe?g|png|svg)$/.test(name ?? '')) {
-            return 'assets/images/[name]-[hash][extname]'
+            return 'img/[name]-[hash][extname]'
           }
-
           if (/\.css$/.test(name ?? '')) {
             return 'assets/css/[name]-[hash][extname]'
           }
-
-          // default value
-          // ref: https://rollupjs.org/guide/en/#outputassetfilenames
           return 'assets/[name]-[hash][extname]'
         },
       },

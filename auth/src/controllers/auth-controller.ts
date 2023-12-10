@@ -88,5 +88,5 @@ export const revokeDiscordToken = (req: Request, res: Response) => {
 export const getCurrentUser = (req: Request, res: Response) => {
   console.log('💥 Get Current User')
 
-  res.send({ msg: '💥 Get Current User' })
+  res.send(req.currentUser)
 }

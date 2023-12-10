@@ -30,14 +30,7 @@ export const userSlice = createSlice({
       return state
     },
     loginUser: (state, action: PayloadAction<LoginPayload>): UserState => {
-      const {
-        username,
-        discordName,
-        discordId,
-        discriminator,
-        avatar,
-        cohort,
-      } = action.payload
+      const { username, discordName, discordId, discriminator, avatar, cohort } = action.payload
       state.nickname = username || ''
       state.username = discordName || ''
       state.discordId = discordId || ''

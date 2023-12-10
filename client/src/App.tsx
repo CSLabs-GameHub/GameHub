@@ -12,10 +12,7 @@ const App = () => {
   return (
     <div className="w-full max-w-[100vw] min-h-screen flex flex-col justify-center items-center bg-colorDark text-colorLight relative">
       <Routes>
-        <Route
-          path="/"
-          element={<ProtectedRoute children={<SharedLayout />} />}
-        >
+        <Route path="/" element={<ProtectedRoute children={<SharedLayout />} />}>
           <Route index element={<MainMenu />} />
           <Route path="/me" element={<Account />} />
           <Route path="/wheel-of-fortune" element={<Wof />} />
