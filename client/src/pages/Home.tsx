@@ -16,7 +16,7 @@ const Home = () => {
   const dispatch = useDispatch()
 
   const getCurrentUser = async () => {
-    const response = await authFetch.get<LoginPayload>('/me/current-user')
+    const response = await authFetch.get<LoginPayload>('/users/current-user')
     dispatch(loginUser(response.data))
   }
 

@@ -1,8 +1,10 @@
 import axios from 'axios'
 
 const authFetch = axios.create({
-  baseURL: 'http://localhost:5000/api/v1',
-  withCredentials: true,
+  baseURL: 'http://gamehub.dev/api/v1',
+  // DEV:PROD
+  withCredentials: false,
+  // withCredentials: true,
 })
 
 authFetch.interceptors.response.use(

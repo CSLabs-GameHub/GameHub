@@ -18,11 +18,19 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
-    # - image: seantokuzo/client
-    #   context: client
+    # - image: csl_gamehub/wof
+    #   context: wof
     #   docker:
     #     dockerfile: Dockerfile
     #   sync:
     #     manual:
-    #       - src: '**/*.js'
+    #       - src: 'src/**/*.ts'
     #         dest: .
+    - image: csl_gamehub/client
+      context: client
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: '**/*.js'
+            dest: .

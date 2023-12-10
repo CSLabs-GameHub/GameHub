@@ -1,11 +1,21 @@
 {
-  "name": "client",
+  "name": "cslabs_gamehub_client",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
+  "description": "Client service for CSLabs GameHub",
+  "author": {
+    "name": "seantokuzo",
+    "email": "seantokuzo@gmail.com"
+  },
+  "bug": {
+    "url": "https://github.com/CSLabs-GameHub/GameHub/issues"
+  },
   "scripts": {
-    "dev": "vite",
     "build": "tsc && vite build",
+    "start": "rm -rf ./build/* && npm run build && cd server && npm start",
+    "start:dev": "cd server && npm start",
+    "dev": "vite",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
