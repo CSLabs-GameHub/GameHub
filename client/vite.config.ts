@@ -13,7 +13,7 @@ export default defineConfig({
       '/api': 'http://gamehub.dev/api',
     },
     https: false,
-    open: true,
+    // open: true,
   },
   build: {
     outDir: './build',
