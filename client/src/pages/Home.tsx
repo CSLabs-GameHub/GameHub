@@ -4,11 +4,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../redux/store'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { loadUser, loginUser } from '../redux/userReducer'
-import { authFetch } from '../utils/authFetch'
+import { loadUser, loginUser, stopLoading } from '../redux/userReducer'
 import { LoginPayload } from '../redux/userPayloadTypes'
-import Loading from '../components/Loading'
-// import { getCurrentUser } from '../utils/getCurrentUser'
+import Loading from '../components/utility/Loading'
+import { authFetch } from '../utils/authFetch'
 
 const Home = () => {
   const user = useSelector((state: RootState) => state.user)
@@ -16,15 +15,19 @@ const Home = () => {
   const dispatch = useDispatch()
 
   const getCurrentUser = async () => {
-    const response = await authFetch.get<LoginPayload>('/users/current-user')
+    const response = await authFetch<LoginPayload>('/users/current-user')
+
+    if (!response.data.currentUser) {
+      dispatch(stopLoading())
+      return
+    }
+
     dispatch(loginUser(response.data))
   }
 
   useEffect(() => {
     dispatch(loadUser())
-    setTimeout(() => {
-      getCurrentUser()
-    }, 750)
+    getCurrentUser()
     // eslint-disable-next-line
   }, [])
 

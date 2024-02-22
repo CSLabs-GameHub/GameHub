@@ -5,15 +5,20 @@ import tsconfigPaths from 'vite-tsconfig-paths'
 // https://vitejs.dev/config/
 export default defineConfig({
   server: {
-    host: 'gamehub.dev',
+    host: '0.0.0.0',
     port: 3000,
-    strictPort: true,
-    proxy: {
-      '/': 'http://gamehub.dev/',
-      '/api': 'http://gamehub.dev/api',
-    },
+    // strictPort: true,
+    // proxy: {
+    //   '/': 'http://gamehub.dev/',
+    //   '/api': 'http://gamehub.dev/api',
+    // },
     https: false,
     // open: true,
+    hmr: {
+      protocol: 'ws',
+      port: 3000,
+      host: '0.0.0.0',
+    },
   },
   build: {
     outDir: './build',

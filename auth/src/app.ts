@@ -11,6 +11,7 @@ import authRouter from './routes/auth-router'
 import { errorHandler, NotFoundError } from '@cs_labs_gamehub/common'
 
 const app = express()
+// DEV:PROD
 app.set('trust proxy', true)
 app.use(json())
 app.use(

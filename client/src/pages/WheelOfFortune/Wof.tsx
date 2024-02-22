@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
-import { authFetch } from '../utils/authFetch'
-import Loading from '../components/Loading'
+import { authFetch } from '../../utils/authFetch'
+import Loading from '../../components/utility/Loading'
 import { nanoid } from 'nanoid'
-import WofWheel from '../components/WofWheel'
+import WofWheel from '../../components/WheelOfFortune/WofWheel'
 
 const keyboardKeys = [
   ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
@@ -81,11 +81,7 @@ const Wof = () => {
         mx-2 my-1 text-4xl border-yellow-300 border-2 rounded-sm
         ${char ? 'bg-yellow-100 text-black' : 'bg-green-600'}`}
       >
-        {userGame?.win || userGame?.lose
-          ? char
-          : userGame?.goodGuesses.includes(char)
-          ? char
-          : ''}
+        {userGame?.win || userGame?.lose ? char : userGame?.goodGuesses.includes(char) ? char : ''}
       </div>
     )
   }
@@ -95,16 +91,11 @@ const Wof = () => {
       {/* USER SCORE AND GUESSES */}
       <div className="flex flex-col justify-center items-center">
         <p className="text-2xl">
-          Winnings:{' '}
-          <span className="text-green-300 text-3xl">
-            ${userGame?.score || 0}
-          </span>
+          Winnings: <span className="text-green-300 text-3xl">${userGame?.score || 0}</span>
         </p>
         <p className="text-2xl">
           Strikes Left:{' '}
-          <span className="text-red-300 text-3xl">
-            {5 - (userGame?.badGuesses.length || 0)}
-          </span>
+          <span className="text-red-300 text-3xl">{5 - (userGame?.badGuesses.length || 0)}</span>
         </p>
       </div>
       {/* GAME BOARD */}
@@ -120,9 +111,7 @@ const Wof = () => {
           )
         })}
       </div>
-      <p className="bg-yellow-300 text-colorDark py-1 px-4 rounded-md mt-2">
-        {game?.category}
-      </p>
+      <p className="bg-yellow-300 text-colorDark py-1 px-4 rounded-md mt-2">{game?.category}</p>
       {/* WHEEL */}
       {!userGame?.win && !userGame?.lose ? (
         <WofWheel />
@@ -144,10 +133,7 @@ const Wof = () => {
           className="mb-4 bg-discord py-2 px-12 rounded-md text-3xl
           shadow-shDiscord"
         >
-          Guess:{' '}
-          <span className="text-green-500 bg-black px-4 rounded-md">
-            $ {spinAmount}
-          </span>
+          Guess: <span className="text-green-500 bg-black px-4 rounded-md">$ {spinAmount}</span>
         </p>
       ) : (
         <></>
@@ -156,10 +142,7 @@ const Wof = () => {
       <div className="flex flex-col justify-center items-center">
         {keyboardKeys.map((row) => {
           return (
-            <div
-              key={nanoid()}
-              className="flex justify-center items-center my-1.5"
-            >
+            <div key={nanoid()} className="flex justify-center items-center my-1.5">
               {row.map((letter) => {
                 return (
                   <button

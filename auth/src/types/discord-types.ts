@@ -1,3 +1,5 @@
+export const validCohorts = new Set(['ECRI 43', 'ECRI 44', 'CTRI 19'])
+
 export enum DISCORD_API_ROUTES {
   GET_TOKEN = 'https://discord.com/api/v10/oauth2/token',
   GET_USER = 'https://discord.com/api/v10/users/@me',

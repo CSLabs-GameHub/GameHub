@@ -16,7 +16,7 @@ const Account = () => {
   const handleUpdate = async () => {
     if (!cohort) return
     try {
-      const response = await authFetch.patch('/me/update-cohort', {
+      const response = await authFetch.patch('/users/update-cohort', {
         newCohort: cohort,
       })
       dispatch(loginUser(response.data))

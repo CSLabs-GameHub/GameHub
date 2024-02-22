@@ -29,15 +29,21 @@ export const userSlice = createSlice({
       state.isLoading = true
       return state
     },
+    stopLoading: (state): UserState => {
+      state.isLoading = false
+      return state
+    },
     loginUser: (state, action: PayloadAction<LoginPayload>): UserState => {
-      const { username, discordName, discordId, discriminator, avatar, cohort } = action.payload
+      state.isLoading = false
+      if (!action.payload.currentUser) return state
+      const { username, discordName, discordId, discriminator, avatar, cohort } =
+        action.payload.currentUser
       state.nickname = username || ''
       state.username = discordName || ''
       state.discordId = discordId || ''
       state.discriminator = discriminator || ''
       state.avatar = avatar || ''
       state.cohort = cohort || ''
-      state.isLoading = false
       return state
     },
     logoutUser: (state): UserState => {
@@ -47,5 +53,5 @@ export const userSlice = createSlice({
   },
 })
 
-export const { loadUser, loginUser, logoutUser } = userSlice.actions
+export const { loadUser, loginUser, logoutUser, stopLoading } = userSlice.actions
 export default userSlice.reducer

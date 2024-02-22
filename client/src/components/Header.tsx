@@ -3,9 +3,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../redux/store'
 import { AiFillHome } from 'react-icons/ai'
 import { Link, useLocation } from 'react-router-dom'
-import { axiosBaseUrl } from '../utils/baseUrls'
-import axios from 'axios'
 import { logoutUser } from '../redux/userReducer'
+import { authFetch } from '../utils/authFetch'
 
 const Header = () => {
   const [showLogoutBtn, toggleLogoutBtn] = useState(false)
@@ -17,7 +16,7 @@ const Header = () => {
 
   const handleLogout = async () => {
     try {
-      await axios.post(axiosBaseUrl + '/auth/signout')
+      await authFetch.post('/users/logout')
       toggleLogoutBtn(false)
       dispatch(logoutUser())
     } catch (err) {

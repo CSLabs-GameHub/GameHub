@@ -1,7 +1,7 @@
 import { Navigate } from 'react-router-dom'
-import Loading from '../components/Loading'
+import Loading from '../../components/utility/Loading'
 import { useSelector } from 'react-redux'
-import { RootState } from '../redux/store'
+import { RootState } from '../../redux/store'
 
 type Props = {
   children: JSX.Element | JSX.Element[]

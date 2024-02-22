@@ -1,17 +1,22 @@
 import { Request, Response } from 'express'
-import mongoose from 'mongoose'
 import axios from 'axios'
-import { BadRequestError } from '@cs_labs_gamehub/common'
+import { BadRequestError, CurrentUserRequest } from '@cs_labs_gamehub/common'
 import { getDiscordUser } from '../utils/get-discord-user'
 import { checkAcceptedServers } from '../utils/check-accepted-servers'
 import { User } from '../models/user'
 import { attachCookie } from '../utils/attach-cookie'
+import { NotAuthorizedError } from '@cs_labs_gamehub/common'
+import { DatabaseConnectionError } from '@cs_labs_gamehub/common'
+import { validCohorts } from '../types/discord-types'
 
+// ***** LOGIN ROUTE *****
 export const login = async (req: Request, res: Response) => {
   console.log('💥 Login')
+  // discord OAuth forwards request to our login endpoint
+  // with login code attached as query on the request
   const { code } = req.query
-  console.log(code)
 
+  // if no login code
   if (!code) {
     throw new BadRequestError('Something went wrong')
   }
@@ -70,23 +75,78 @@ export const login = async (req: Request, res: Response) => {
 
   res.status(200).redirect('http://gamehub.dev/')
 
-  res.send({ msg: '💥 Login' })
+  // res.send({ msg: '💥 Login' })
 }
-
 export const logout = (req: Request, res: Response) => {
   console.log('💥 Logout')
+  req.session = null
 
   res.send({ msg: '💥 Logout' })
 }
 
+export const updateCohort = async (req: CurrentUserRequest, res: Response) => {
+  console.log('💥 Update Cohort')
+  const { currentUser } = req
+  const { newCohort } = req.body
+  console.log('🆕 newCohort: ', newCohort)
+
+  if (!currentUser) {
+    throw new NotAuthorizedError()
+  }
+
+  if (!newCohort || !validCohorts.has(newCohort)) {
+    throw new BadRequestError('Must update to a valid cohort')
+  }
+
+  try {
+    const user = await User.findById(currentUser.id)
+    if (!user) {
+      throw new BadRequestError('User does not exist')
+    }
+    user.cohort = newCohort
+    await user.save()
+    return res.status(200).send({ currentUser: user })
+  } catch (err) {
+    throw new DatabaseConnectionError()
+  }
+}
+
+export const updateNickname = async (req: CurrentUserRequest, res: Response) => {
+  console.log('💥 Update Nickname')
+  const { currentUser } = req
+  const { newNickname } = req.body
+
+  const invalidChars = /[^-.a-zA-Z0-9_]/g
+
+  if (!currentUser) throw new NotAuthorizedError()
+
+  if (!newNickname || !invalidChars.test(newNickname)) {
+    throw new BadRequestError('Must provide valid nickname')
+  }
+
+  const user = await User.findById(currentUser.id)
+
+  res.status(200).send({ currentUser: user })
+}
+
+// TODO
 export const revokeDiscordToken = (req: Request, res: Response) => {
   console.log('💥 Revoke Discord Token')
 
   res.send({ msg: '💥 💥 Revoke Discord Token' })
 }
 
-export const getCurrentUser = (req: Request, res: Response) => {
+export const getCurrentUser = async (req: Request, res: Response) => {
   console.log('💥 Get Current User')
+  if (!req.currentUser?.id) {
+    return res.status(200).send({ currentUser: null })
+  }
 
-  res.send(req.currentUser)
+  const currentUser = await User.findById(req.currentUser.id)
+
+  if (!currentUser) {
+    return res.status(200).send({ currentUser: null })
+  }
+
+  res.status(200).send({ currentUser })
 }

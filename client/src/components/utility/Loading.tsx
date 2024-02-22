@@ -1,5 +1,5 @@
 import { useLocation } from 'react-router-dom'
-import theDude from '../assets/img/the_dude.png'
+import theDude from '../../assets/img/the_dude.png'
 
 const Loading: React.FC = () => {
   const { pathname } = useLocation()

@@ -1,11 +1,11 @@
 import { Route, Routes } from 'react-router-dom'
 import Home from './pages/Home'
-import WhereArtThou from './pages/WhereArtThou'
+import WhereArtThou from './pages/utility/WhereArtThou'
 import MainMenu from './pages/MainMenu'
-import Forbidden from './pages/Forbidden'
-import ProtectedRoute from './pages/ProtectedRoute'
-import SharedLayout from './pages/SharedLayout'
-import Wof from './pages/Wof'
+import Forbidden from './pages/utility/Forbidden'
+import ProtectedRoute from './pages/utility/ProtectedRoute'
+import SharedLayout from './pages/utility/SharedLayout'
+import Wof from './pages/WheelOfFortune/Wof'
 import Account from './pages/Account'
 
 const App = () => {
